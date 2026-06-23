@@ -431,6 +431,25 @@
       #featured-journey-grid.feature-grid{grid-template-columns:1fr 1fr!important}
       .featured-short-body p{display:none}
     }
+
+    /* ===== V6 FINAL: Top 4 video dài + đồng bộ mới nhất chính xác ===== */
+    .top-long-section{position:relative;background:linear-gradient(180deg,#eef9ff 0%,#ffffff 100%);overflow:hidden}
+    .top-long-section:before{content:"";position:absolute;width:480px;height:480px;border-radius:50%;left:-250px;top:-250px;background:radial-gradient(circle,rgba(0,142,214,.16),transparent 68%);pointer-events:none}
+    .top-long-toolbar{display:flex;justify-content:space-between;align-items:center;gap:18px;margin:-10px 0 28px}
+    .top-long-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+    .top-long-card{position:relative;display:flex;flex-direction:column;min-width:0;overflow:hidden;border-radius:23px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow-soft);transition:.28s ease}
+    .top-long-card:hover{transform:translateY(-7px);box-shadow:var(--shadow)}
+    .top-long-thumb{position:relative;aspect-ratio:16/9;overflow:hidden;background:linear-gradient(145deg,#052d54,#008ed6 62%,#56d0f7)}
+    .top-long-thumb img{width:100%;height:100%;display:block;object-fit:contain;background:#071b2d;filter:none!important;transform:none!important}
+    .top-long-rank{position:absolute;left:11px;top:11px;z-index:3;display:grid;place-items:center;min-width:42px;height:42px;padding:0 10px;border-radius:14px;background:linear-gradient(135deg,#0078bd,#39bdf2);color:#fff;font-size:.78rem;font-weight:950;box-shadow:0 10px 24px rgba(0,120,189,.3)}
+    .top-long-duration{position:absolute;right:11px;bottom:11px;z-index:3;padding:6px 9px;border-radius:999px;background:rgba(2,28,54,.88);color:#fff;font-size:.65rem;font-weight:900;backdrop-filter:blur(7px)}
+    .top-long-body{padding:17px 17px 20px}
+    .top-long-body>span{display:block;color:var(--ocean);font-size:.65rem;font-weight:950;letter-spacing:.1em;text-transform:uppercase;margin-bottom:7px}
+    .top-long-body h3{font-size:.95rem;line-height:1.35;margin:0 0 9px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+    .top-long-body p{margin:0;color:var(--muted);font-size:.72rem}
+    @media(max-width:1100px){.top-long-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:620px){.top-long-toolbar{align-items:flex-start;flex-direction:column}.top-long-grid{grid-template-columns:1fr!important;gap:15px}.top-long-body{padding:15px 14px 17px}.top-long-body h3{font-size:.9rem}}
+
 </style>
 </head>
 <body>
@@ -470,8 +489,8 @@
 <section class="hero">
 <div class="container hero-inner">
 <div class="hero-copy reveal">
-<div class="hero-badge"><span></span> Travel creator • Vietnam to the world</div>
-<h1>Lái đi.<br/><em>Khám phá Việt Nam và Thế Giới</em><br/>theo cách của Khánh.</h1>
+<div class="hero-badge"><span></span> Travel creator from Vietnam</div>
+<h1>Lái đi.<br/><em>Khám phá Việt Nam và thế giới</em><br/>theo cách của Khánh.</h1>
 <p>Những chuyến roadtrip bằng chiếc xe nhỏ, món ngon dọc đường và trải nghiệm địa phương — từ Việt Nam đến những điểm đến quốc tế — được kể lại bằng góc nhìn chân thật, gần gũi và đầy năng lượng của một travel vlogger.</p><p class="hero-wish">Khánh mong rằng trong mỗi bữa cơm trưa, chiều hay tối, khi cả nhà mở TV lên, những thước phim này sẽ mang đến thật nhiều niềm vui, sự nhiệt huyết và cảm hứng cùng nhau khám phá thêm một góc mới của thế giới.</p>
 <div class="hero-actions">
 <a class="button button-white" href="#hanh-trinh">Khám phá hành trình <span class="arrow">→</span></a>
@@ -490,12 +509,31 @@
 </section>
 <div class="quick-strip">
 <div class="container quick-box">
-<a class="quick-item" href="#moi-ra-lo"><span class="quick-icon">01</span><span><strong>Roadtrip</strong><small>Cung đường &amp; hành trình</small></span></a>
-<a class="quick-item" href="#moi-ra-lo"><span class="quick-icon">02</span><span><strong>Khám phá</strong><small>Cảnh đẹp &amp; điểm đến</small></span></a>
-<a class="quick-item" href="#moi-ra-lo"><span class="quick-icon">03</span><span><strong>Ăn gì?</strong><small>Món ngon dọc đường</small></span></a>
+<a class="quick-item" href="#top-video-dai"><span class="quick-icon">01</span><span><strong>Top 4 video dài</strong><small>NHIỀU VIEW NHẤT</small></span></a>
+<a class="quick-item" href="#moi-ra-lo"><span class="quick-icon">02</span><span><strong>Nóng hổi vừa ra lò</strong><small>VIDEO DÀI MỚI NHẤT</small></span></a>
+<a class="quick-item" href="#moi-ra-lo"><span class="quick-icon">03</span><span><strong>Nóng hổi vừa ra lò</strong><small>VIDEO DÀI • TRAVEL VLOG</small></span></a>
 <a class="quick-item" href="#hanh-trinh"><span class="quick-icon">04</span><span><strong>Review nhanh</strong><small>Shorts &amp; sản phẩm thật</small></span></a>
 </div>
 </div>
+
+<section class="section top-long-section" id="top-video-dai">
+<div class="container">
+<div class="section-head reveal">
+<div><p class="section-kicker">🏆 Top video dài • Nhiều view nhất</p><h2>4 video dài được mọi người xem nhiều nhất</h2></div>
+<p>Những hành trình travel nổi bật nhất của Khánh được xếp theo lượt xem từ cao xuống thấp — video có nhiều lượt xem nhất sẽ đứng đầu.</p>
+</div>
+<div class="top-long-toolbar reveal">
+<span class="fresh-pill"><i></i> Xếp hạng tự động từ YouTube</span>
+<span class="channel-count" id="top-long-result-note">Đang tải Top 4…</span>
+</div>
+<div class="top-long-grid" id="top-long-video-grid">
+<a class="top-long-card reveal" href="https://www.youtube.com/@anhkhanhmatbu/videos" rel="noopener" target="_blank">
+<div class="top-long-thumb"><img alt="Top video dài Anh Khánh Mặt Bự" src="https://i.ytimg.com/vi/tS95OQsweDE/maxresdefault.jpg" data-fallback="https://i.ytimg.com/vi/tS95OQsweDE/hqdefault.jpg" onerror="if(this.dataset.fallback&&this.src!==this.dataset.fallback){this.src=this.dataset.fallback;this.onerror=null;}"><span class="top-long-rank">#1</span><span class="top-long-duration">VIDEO DÀI</span></div>
+<div class="top-long-body"><span>TOP VIDEO DÀI</span><h3>Top 4 video dài nhiều lượt xem nhất sẽ tự động xuất hiện tại đây</h3><p>Kết nối YouTube Data API để cập nhật bảng xếp hạng.</p></div>
+</a>
+</div>
+</div>
+</section>
 <section class="section latest-section" id="moi-ra-lo">
 <div class="container">
 <div class="section-head reveal latest-head">
@@ -532,10 +570,10 @@
 <div class="container">
 <div class="section-head reveal">
 <div>
-<p class="section-kicker">Chọn nội dung muốn xem</p>
-<h2>Xem travel vlog mới hoặc lướt Shorts review thật nhanh</h2>
+<p class="section-kicker">Video &amp; Shorts</p>
+<h2>Đi chơi xem video dài, tìm đồ hay xem review ngắn</h2>
 </div>
-<p>Video dài mới ra lò nằm ở phía trên; khu vực bên dưới dành riêng cho Shorts review sản phẩm, phụ kiện xe và đồ dùng Khánh đã trực tiếp trải nghiệm.</p>
+<p>Nội dung được chia rõ theo đúng phong cách của kênh: video dài là những hành trình du lịch trải nghiệm; Shorts là các video review sản phẩm và phụ kiện.</p>
 </div>
 <div aria-label="Chọn loại nội dung" class="content-jump reveal">
 <a class="content-jump-card content-jump-card--travel" href="#moi-ra-lo">
@@ -556,6 +594,8 @@
 <span id="api-status-text">Nội dung mẫu</span>
 </span>
 </div>
+
+
 <div class="channel-block channel-block--shorts" id="product-shorts">
 <div class="channel-heading reveal">
 <div class="channel-heading-copy">
@@ -644,12 +684,13 @@
     const YOUTUBE_CONFIG = Object.freeze({
       apiKey: 'AIzaSyAJVKNue-th3FgNBCm3EP4L14V884BPlSU',
       handle: '@anhkhanhmatbu',
-      maxFetch: 100,
+      maxFetch: 200,
       latestLimit: 6,
+      topLongLimit: 4,
       featuredLimit: 8,
       longLimit: 12,
       shortLimit: 12,
-      cacheMinutes: 60
+      cacheMinutes: 10
     });
 
     const HERO_VIDEO_PICKS=Object.freeze([
@@ -664,10 +705,12 @@
     const input=document.getElementById('search-input');
     const toast=document.getElementById('toast');
     const latestGrid=document.getElementById('latest-video-grid');
+    const topLongGrid=document.getElementById('top-long-video-grid');
     const featureGrid=document.getElementById('featured-journey-grid');
     const longGrid=document.getElementById('long-video-grid');
     const shortGrid=document.getElementById('short-video-grid');
     const latestNote=document.getElementById('latest-result-note');
+    const topLongNote=document.getElementById('top-long-result-note');
     const longNote=document.getElementById('long-result-note');
     const shortNote=document.getElementById('short-result-note');
     const longEmpty=document.getElementById('long-empty-state');
@@ -681,10 +724,11 @@
     const storyCard=document.getElementById('story-feature-card');
     const heroCards=[1,2,3,4].map(n=>document.getElementById(`hero-trip-${n}`)).filter(Boolean);
     const staticLatestHTML=latestGrid?.innerHTML||'';
+    const staticTopLongHTML=topLongGrid?.innerHTML||'';
     const staticFeatureHTML=featureGrid?.innerHTML||'';
     const staticLongHTML=longGrid?.innerHTML||'';
     const staticShortHTML=shortGrid?.innerHTML||'';
-    const CACHE_KEY='akmb_youtube_cache_split_v5_global';
+    const CACHE_KEY='akmb_youtube_cache_v6_final_top4_latest';
     let observer=null;
 
     menuBtn?.addEventListener('click',()=>{
@@ -697,6 +741,10 @@
 
     function applySearch(query=''){
       const q=normalize(query.trim());
+      topLongGrid?.querySelectorAll('.top-long-card').forEach(card=>{
+        const text=normalize((card.dataset.title||'')+' '+card.textContent);
+        card.classList.toggle('hidden',!!q&&!text.includes(q));
+      });
       const groups=[
         {root:latestGrid,selector:'.latest-card'},
         {root:featureGrid,selector:'.featured-short-card'},
@@ -814,6 +862,16 @@
       return `<img src="${escapeHTML(primary)}" data-fallback="${escapeHTML(fallback)}" onerror="if(this.dataset.fallback&&this.src!==this.dataset.fallback){this.src=this.dataset.fallback;this.onerror=null;}" alt="${escapeHTML(alt)}" loading="${eager?'eager':'lazy'}" decoding="async">`;
     }
 
+
+    function renderTopLongCard(item,index){
+      const id=/^[\w-]{6,20}$/.test(item.id||'')?item.id:'';if(!id) return '';
+      const title=item.title||'Top video dài từ Anh Khánh Mặt Bự';
+      return `<a class="top-long-card reveal" data-title="${escapeHTML(title)}" href="https://www.youtube.com/watch?v=${id}" target="_blank" rel="noopener">
+        <div class="top-long-thumb">${thumbImg(item,title,index<4)}<span class="top-long-rank">#${index+1}</span><span class="top-long-duration">${escapeHTML(formatDuration(item.duration))}</span></div>
+        <div class="top-long-body"><span>TOP VIDEO DÀI</span><h3>${escapeHTML(title)}</h3><p>${formatCompact(item.viewCount)} lượt xem • ${escapeHTML(formatDate(item.publishedAt))}</p></div>
+      </a>`;
+    }
+
     function renderLatestCard(item,index){
       const id=/^[\w-]{6,20}$/.test(item.id||'')?item.id:'';if(!id) return '';
       const title=item.title||'Video dài mới từ Anh Khánh Mặt Bự';
@@ -881,12 +939,16 @@
       const allShorts=newest.filter(isShortVideo);
       const shorts=allShorts.slice(0,YOUTUBE_CONFIG.shortLimit);
       const featured=[...allShorts].sort((a,b)=>viewNumber(b)-viewNumber(a)).slice(0,YOUTUBE_CONFIG.featuredLimit);
-      const longsByViews=newest.filter(isLongVideo).sort((a,b)=>viewNumber(b)-viewNumber(a));
-      const latest=newest.filter(isLongVideo).slice(0,YOUTUBE_CONFIG.latestLimit);
+      const allLongs=data.videos.filter(v=>isLongVideo(v)&&!isLiveLike(v));
+      const longsByViews=[...allLongs].sort((a,b)=>(viewNumber(b)-viewNumber(a))||(dateNumber(b)-dateNumber(a)));
+      const topLongs=longsByViews.slice(0,YOUTUBE_CONFIG.topLongLimit);
+      const latest=[...allLongs].sort((a,b)=>(dateNumber(b)-dateNumber(a))||((a.uploadPosition??999999)-(b.uploadPosition??999999))).slice(0,YOUTUBE_CONFIG.latestLimit);
 
+      if(topLongGrid) topLongGrid.innerHTML=topLongs.length?topLongs.map(renderTopLongCard).join(''):staticTopLongHTML;
       if(latestGrid) latestGrid.innerHTML=latest.length?latest.map(renderLatestCard).join(''):staticLatestHTML;
       if(featureGrid) featureGrid.innerHTML=featured.length?featured.map(renderFeatureCard).join(''):staticFeatureHTML;
       if(shortGrid) shortGrid.innerHTML=shorts.length?shorts.map(renderShortCard).join(''):staticShortHTML;
+      if(topLongNote) topLongNote.textContent=`Top ${topLongs.length} video dài`;
       if(latestNote) latestNote.textContent=`${latest.length} video dài mới nhất`;
       if(shortNote) shortNote.textContent=`${shorts.length} Shorts review mới`;
 
@@ -924,9 +986,9 @@
         const batch=requestedIds.slice(start,start+50),result=await getJSON(`${base}/videos?part=snippet,contentDetails,statistics&id=${encodeURIComponent(batch.join(','))}&key=${key}`);
         (result.items||[]).forEach(item=>detailsById.set(item.id,item));
       }
-      const videos=playlistItems.map(upload=>{
+      const videos=playlistItems.map((upload,uploadPosition)=>{
         const id=upload.contentDetails.videoId,detail=detailsById.get(id)||{},snippet=detail.snippet||upload.snippet||{},thumbs=snippet.thumbnails||{};
-        return {id,title:snippet.title||'',description:snippet.description||'',publishedAt:snippet.publishedAt||upload.contentDetails.videoPublishedAt||'',thumbnail:thumbs.maxres?.url||thumbs.standard?.url||thumbs.high?.url||thumbs.medium?.url||thumbs.default?.url||'',duration:detail.contentDetails?.duration||'',viewCount:detail.statistics?.viewCount||0};
+        return {id,title:snippet.title||'',description:snippet.description||'',publishedAt:upload.contentDetails.videoPublishedAt||snippet.publishedAt||upload.snippet?.publishedAt||'',uploadPosition,thumbnail:thumbs.maxres?.url||thumbs.standard?.url||thumbs.high?.url||thumbs.medium?.url||thumbs.default?.url||'',duration:detail.contentDetails?.duration||'',viewCount:detail.statistics?.viewCount||0};
       }).filter(video=>video.id);
       const heroVideos=HERO_VIDEO_PICKS.map(pick=>{const detail=detailsById.get(pick.id);if(!detail)return null;const snippet=detail.snippet||{},thumbs=snippet.thumbnails||{};return {id:pick.id,title:snippet.title||'',description:snippet.description||'',publishedAt:snippet.publishedAt||'',thumbnail:thumbs.maxres?.url||thumbs.standard?.url||thumbs.high?.url||thumbs.medium?.url||thumbs.default?.url||'',duration:detail.contentDetails?.duration||'',viewCount:detail.statistics?.viewCount||0};}).filter(Boolean);
       return {fetchedAt:Date.now(),channel:{id:channel.id,title:channel.snippet?.title||'Anh Khánh Mặt Bự',subscriberCount:channel.statistics?.hiddenSubscriberCount?'':channel.statistics?.subscriberCount||'',videoCount:channel.statistics?.videoCount||''},videos,heroVideos};
@@ -938,7 +1000,7 @@
       const cached=readCache();if(cached&&renderYoutube(cached,{fromCache:true})) return;
       setApiStatus('loading','Đang tải video mới & thumbnail HQ…');
       try{const data=await fetchYoutubeData();if(!renderYoutube(data)) throw new Error('YouTube không trả về nội dung hợp lệ.');saveCache(data);}
-      catch(error){console.warn('[YouTube API]',error);if(latestGrid&&!latestGrid.querySelector('.latest-card')) latestGrid.innerHTML=staticLatestHTML;if(featureGrid&&!featureGrid.querySelector('.feature-card')) featureGrid.innerHTML=staticFeatureHTML;if(longGrid&&!longGrid.querySelector('.video-card')) longGrid.innerHTML=staticLongHTML;if(shortGrid&&!shortGrid.querySelector('.short-card')) shortGrid.innerHTML=staticShortHTML;setApiStatus('error','Không kết nối được • dùng nội dung mẫu');observeReveals();applySearch(input?.value||'');}
+      catch(error){console.warn('[YouTube API]',error);if(topLongGrid&&!topLongGrid.querySelector('.top-long-card')) topLongGrid.innerHTML=staticTopLongHTML;if(latestGrid&&!latestGrid.querySelector('.latest-card')) latestGrid.innerHTML=staticLatestHTML;if(featureGrid&&!featureGrid.querySelector('.feature-card')) featureGrid.innerHTML=staticFeatureHTML;if(longGrid&&!longGrid.querySelector('.video-card')) longGrid.innerHTML=staticLongHTML;if(shortGrid&&!shortGrid.querySelector('.short-card')) shortGrid.innerHTML=staticShortHTML;setApiStatus('error','Không kết nối được • dùng nội dung mẫu');observeReveals();applySearch(input?.value||'');}
     }
     loadYoutube();
   })();
