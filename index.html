@@ -533,8 +533,10 @@
     /* ===============================================================
        CẤU HÌNH YOUTUBE DATA API
        - Dán API key vào dòng apiKey.
-       - Video <= 3 phút hoặc có #Shorts được đưa vào mục Shorts.
-       - Video dài còn lại được đưa vào mục Travel vlog.
+       - Shorts: CHỈ video có thời lượng tối đa 3 phút.
+       - Travel vlog: CHỈ video dài hơn 3 phút.
+       - Từ khóa trong tiêu đề/mô tả không còn được dùng để quyết định Shorts,
+         nên video travel dài 1–3 giờ sẽ không thể bị xếp nhầm.
        =============================================================== */
     const YOUTUBE_CONFIG = Object.freeze({
       apiKey: 'AIzaSyAJVKNue-th3FgNBCm3EP4L14V884BPlSU',
@@ -561,7 +563,7 @@
     const subscriberCountEl=document.getElementById('channel-subscriber-count');
     const staticLongHTML=longGrid?.innerHTML||'';
     const staticShortHTML=shortGrid?.innerHTML||'';
-    const CACHE_KEY='akmb_youtube_cache_split_v1';
+    const CACHE_KEY='akmb_youtube_cache_split_v2';
     let observer=null;
 
     menuBtn?.addEventListener('click',()=>{
@@ -694,17 +696,22 @@
       return 'Travel vlog';
     }
 
-    function isShortVideo(item){
-      const text=normalize((item.title||'')+' '+(item.description||''));
-      const seconds=durationSeconds(item.duration);
-      const explicitShort=/#shorts|\bshorts?\b/.test(text);
-      const productReview=/review|danh gia nhanh|phu kien|san pham|unbox|mo hop|nuoc hoa o to|goi co|goi lung|gia do dien thoai|rem xe|sap thom|khu mui|thanh giang|mam xe|den xe/.test(text);
-      return explicitShort || (seconds>0 && seconds<=180) || productReview;
-    }
-
     function isLiveLike(item){
       const text=normalize((item.title||'')+' '+(item.description||''));
       return /livestream|live stream|truc tiep|su kien truc tiep/.test(text);
+    }
+
+    function isShortVideo(item){
+      // Quy tắc cứng: video chỉ được vào Shorts khi thời lượng <= 3 phút.
+      // Không dùng từ “review”, “sản phẩm”, “#shorts” trong mô tả để tránh
+      // video travel dài bị xếp nhầm do mô tả mặc định của kênh.
+      const seconds=durationSeconds(item.duration);
+      return seconds>0 && seconds<=180 && !isLiveLike(item);
+    }
+
+    function isLongVideo(item){
+      const seconds=durationSeconds(item.duration);
+      return seconds>180 && !isLiveLike(item);
     }
 
     function renderLongCard(item){
@@ -740,7 +747,7 @@
       if(!Array.isArray(data?.videos)||!data.videos.length) return false;
 
       const shorts=data.videos.filter(isShortVideo).slice(0,YOUTUBE_CONFIG.shortLimit);
-      const longs=data.videos.filter(item=>!isShortVideo(item)&&!isLiveLike(item)).slice(0,YOUTUBE_CONFIG.longLimit);
+      const longs=data.videos.filter(isLongVideo).slice(0,YOUTUBE_CONFIG.longLimit);
 
       if(longGrid){
         longGrid.innerHTML=longs.length?longs.map(renderLongCard).join(''):staticLongHTML;
@@ -792,27 +799,28 @@
       const uploads=channel.contentDetails?.relatedPlaylists?.uploads;
       if(!uploads) throw new Error('Không đọc được playlist Uploads.');
 
+      // Đọc tối đa 100 video mới nhất theo từng trang (YouTube giới hạn 50/lần).
       const playlistItems=[];
       let pageToken='';
       while(playlistItems.length<YOUTUBE_CONFIG.maxFetch){
         const remaining=YOUTUBE_CONFIG.maxFetch-playlistItems.length;
-        const tokenPart=pageToken?`&pageToken=${encodeURIComponent(pageToken)}`:'';
-        const playlistResult=await getJSON(`${base}/playlistItems?part=snippet,contentDetails&playlistId=${encodeURIComponent(uploads)}&maxResults=${Math.min(50,remaining)}${tokenPart}&key=${key}`);
-        playlistItems.push(...(playlistResult.items||[]).filter(item=>item.contentDetails?.videoId));
-        pageToken=playlistResult.nextPageToken||'';
-        if(!pageToken) break;
+        const tokenParam=pageToken?`&pageToken=${encodeURIComponent(pageToken)}`:'';
+        const playlistPage=await getJSON(`${base}/playlistItems?part=snippet,contentDetails&playlistId=${encodeURIComponent(uploads)}&maxResults=${Math.min(50,remaining)}${tokenParam}&key=${key}`);
+        playlistItems.push(...(playlistPage.items||[]).filter(item=>item.contentDetails?.videoId));
+        pageToken=playlistPage.nextPageToken||'';
+        if(!pageToken||!(playlistPage.items||[]).length) break;
       }
 
-      const ids=playlistItems.map(item=>item.contentDetails.videoId);
+      const ids=playlistItems.slice(0,YOUTUBE_CONFIG.maxFetch).map(item=>item.contentDetails.videoId);
       if(!ids.length) throw new Error('Kênh chưa có video công khai.');
 
-      const detailItems=[];
-      for(let i=0;i<ids.length;i+=50){
-        const batch=ids.slice(i,i+50);
+      // videos.list cũng giới hạn 50 ID/lần, nên lấy chi tiết theo từng nhóm.
+      const detailsById=new Map();
+      for(let start=0;start<ids.length;start+=50){
+        const batch=ids.slice(start,start+50);
         const videosResult=await getJSON(`${base}/videos?part=snippet,contentDetails,statistics&id=${encodeURIComponent(batch.join(','))}&key=${key}`);
-        detailItems.push(...(videosResult.items||[]));
+        (videosResult.items||[]).forEach(item=>detailsById.set(item.id,item));
       }
-      const detailsById=new Map(detailItems.map(item=>[item.id,item]));
       const videos=playlistItems.map(upload=>{
         const id=upload.contentDetails.videoId;
         const detail=detailsById.get(id)||{};
